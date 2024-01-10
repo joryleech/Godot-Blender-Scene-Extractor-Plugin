@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dv880pk5g0nke"]
+
+[ext_resource type="PackedScene" uid="uid://h5xherd1uip8" path="res://Sample/ship_parts.blend" id="1_duiom"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="ship_parts" parent="." instance=ExtResource("1_duiom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.16782, 0, -1.01006)
