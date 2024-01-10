@@ -1,7 +1,14 @@
 
   
 # **[Godot-Blender-Scene-Extractor-Plugin](https://github.com/joryleech/Godot-Blender-Scene-Extractor-Plugin)**
-This plugin allows .blend files to be broken up into individual resource files within a single .blend file, allowing collections of models to maintain their connection to the file while being easy to drag into a scene.
+This plugin allows you to break up collections of models in a single .blend file.
+
+
+Godot made importing a single .blend file with multiple models difficult to manage. 
+
+This adds a few features to break up the .blend file into individual resource files for each model, with or without collision.
+
+All at the touch of a button.
 
 ## Installation
 * Copy the contents of the ``/addons`` folder to your projects ``res://addons`` folder.
