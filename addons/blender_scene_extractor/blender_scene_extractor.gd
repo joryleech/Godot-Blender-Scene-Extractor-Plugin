@@ -29,13 +29,20 @@ class SceneExtractorButtonsPlugin extends EditorInspectorPlugin:
 		
 	func pressed_static_bodies():
 		generate_objects_scenes_static(node_object)
-	
+		
+	func generate_folder(path):
+		var dir = DirAccess.open("res://")
+		if not dir.dir_exists_absolute (path):
+			dir.make_dir_absolute(path)
+		
 	func generate_objects_scenes_static(node : Node):
 		print("Generating Models")
 		var folder = node.get_scene_file_path().replace(".blend", "/")
+		generate_folder(folder)
 		for child in node.get_children():
 			if(child is MeshInstance3D):
 				var file_name = folder+child.name+".tscn"
+				
 				print("Generating Model: "+file_name)
 				var packed_scene  = PackedScene.new()
 				var cloned_child = child.duplicate()
@@ -53,6 +60,7 @@ class SceneExtractorButtonsPlugin extends EditorInspectorPlugin:
 	func generate_objects_scenes(node : Node):
 		print("Generating Models")
 		var folder = node.get_scene_file_path().replace(".blend", "/")
+		generate_folder(folder)
 		for child in node.get_children():
 			if(child is MeshInstance3D):
 				var file_name = folder+child.name+".tscn"
