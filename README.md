@@ -18,11 +18,13 @@ All at the touch of a button.
 ## Usage
 * Instanciate your blend files node into a scene, by dragging the file from the res folder into the scene.
 * Click on the newly instantiated node.
-* In the inspector, two new buttons are available
+* In the inspector, three new buttons are available
 	* Generate Individual Scenes
 		* This will generate each model in the .blend file into a new scene with only the mesh renderer
 	* Generate Individual Scenes (Static Body)
 		* This will generate each scene with an additional static body and collision mesh
+	* Generate Mesh Library
+		* Generates a mesh library of all models for use in GridMaps
 * All new scenes will be saved in a folder next to the models original folder.
 	* EX: res://models/sample.blend will turn into res://models/sample/model1.tscn, etc.
   
