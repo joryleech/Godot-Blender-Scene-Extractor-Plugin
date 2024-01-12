@@ -18,9 +18,7 @@ func _exit_tree() -> void:
 class SceneExtractorButtonsPlugin extends EditorInspectorPlugin:
 	var node_object
 	func _can_handle(object: Object) -> bool:
-		print(object.get_scene_file_path())
 		if(object is Node):
-			print(object.get_scene_file_path())
 			return object.get_scene_file_path().contains(".blend")
 		return false
 		
@@ -31,7 +29,10 @@ class SceneExtractorButtonsPlugin extends EditorInspectorPlugin:
 		generate_objects_scenes_static(node_object)
 		
 	func pressed_mesh_library():
-		generate_mesh_library(node_object)
+		generate_mesh_library(node_object, false)
+		
+	func pressed_mesh_library_with_collision():
+		generate_mesh_library(node_object, true)
 		
 	func generate_folder(path):
 		var dir = DirAccess.open("res://")
@@ -72,7 +73,7 @@ class SceneExtractorButtonsPlugin extends EditorInspectorPlugin:
 				packed_scene.pack(child)
 				ResourceSaver.save(packed_scene, file_name)
 				
-	func generate_mesh_library(node : Node):
+	func generate_mesh_library(node : Node, generate_collision : bool):
 		print("Generating Mesh Library")
 		var folder = node.get_scene_file_path().replace(".blend", "/")
 		generate_folder(folder)
@@ -84,11 +85,13 @@ class SceneExtractorButtonsPlugin extends EditorInspectorPlugin:
 				mesh_library.create_item(
 					index
 				)
+				if(generate_collision):
+					mesh_library.set_item_shapes(index, [child.mesh.create_trimesh_shape()])
 				mesh_library.set_item_mesh(index, child.mesh)
+				mesh_library
 		var file_name = folder+node.name+"-ml.tres"
-		print(file_name)
-		var error = ResourceSaver.save(mesh_library, file_name)
-		print(error)
+		print("Generated Mesh Library:"+file_name)
+		var error : Error = ResourceSaver.save(mesh_library, file_name)
 		
 	func add_button(name : String, function):
 		var button = Button.new()
@@ -102,5 +105,6 @@ class SceneExtractorButtonsPlugin extends EditorInspectorPlugin:
 		add_button("Generate Individual Scenes", pressed)
 		add_button("Generate Individual Scenes (Static Bodies)", pressed_static_bodies)
 		add_button("Generate Mesh Library", pressed_mesh_library)
+		add_button("Generate Mesh Library (With Collision)", pressed_mesh_library_with_collision)
 
 
